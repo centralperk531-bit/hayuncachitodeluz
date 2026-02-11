@@ -24,10 +24,10 @@ const CONFIG = {
 };
 
 const EMAILJS_CONFIG = {
-    publicKey: "2y0y0PPlq0OgBw_lo",
-    serviceId: "service_b443ulg",
-    templateCliente: "template_q0w947d",
-    templateAdmin: "template_iv17wmi"
+    publicKey: "te0vd6-Ya3fS53mYX",
+    serviceId: "service_q12fvor",
+    templateCliente: "template_97c5g0f",
+    templateAdmin: "template_4mpv45g"
 };
 
 // ===== VARIABLES GLOBALES =====
