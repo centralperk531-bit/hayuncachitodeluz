@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Casa Paraíso - Alquiler Vacacional</title>
+    <link rel="stylesheet" href="style.css?v=2">
+    <!-- ESTILOS FORZADOS PARA ENLACES -->
+    <style>
+        header a {
+            color: #ffffff !important;
+            text-decoration: underline !important;
+        }
+        header a:visited {
+            color: #ffffff !important;
+        }
+        header a:active {
+            color: #ffd700 !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <button class="admin-btn" onclick="mostrarLoginAdmin()">🔒</button>
+        <h1>🏡 <span id="headerNombre"></span></h1>
+        <p id="headerDescripcion"></p>
+        <p id="headerDescripcionLarga"></p>
+        <p><a href="galeria.html">📸 Galería de fotos</a></p>
+        <p><a id="enlace2" href="#"></a></p>
+    </header>
+
+    <div class="container">
+        <div id="adminPanel" class="admin-panel">
+            <section class="section">
+                <div class="admin-controls">
+                    <h3>🔧 Admin</h3>
+                    <p><strong>PC:</strong> Click derecho | <strong>Móvil:</strong> Mantén pulsado</p>
+                    
+                    <div class="control-buttons">
+                        <button class="btn btn-secondary" onclick="cerrarAdmin()">👁️ Cliente</button>
+                        <button class="btn" onclick="mostrarReservas()">📋 Reservas (<span id="totalReservas">0</span>)</button>
+                        <button class="btn btn-success" onclick="descargarReservas()">💾 Excel</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- BLOQUE DE MESES MOVIDO AQUÍ DENTRO DEL ADMINPANEL -->
+            <section class="section">
+                <div class="admin-controls" style="background: #e3f2fd; border-color: #2196f3;">
+                    <h3 style="color: #1565c0;">📅 Cerrar/Abrir Mes Completo</h3>
+                    <p>Bloquea o desbloquea todos los días de un mes (agenda cerrada)</p>
+        
+                    <div class="form-group">
+                        <label>Selecciona Mes y Año:</label>
+                        <select id="selectorMesBloqueo" style="width: 100%; padding: 0.8rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;">
+                        </select>
+                    </div>
+        
+                    <div class="control-buttons" style="grid-template-columns: 1fr 1fr;">
+                        <button class="btn btn-danger" onclick="cerrarMesCompleto()">🔒 Cerrar Mes</button>
+                        <button class="btn btn-success" onclick="abrirMesCompleto()">🔓 Abrir Mes</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+           
+        <section class="section">
+            <h2>📸 Galería</h2>
+            <div class="galeria">
+                <img src="https://i.imgur.com/SfzoHkT.jpg" alt="Principal" onclick="verImagenGrande(this.src)">
+                <img src="https://i.imgur.com/qgtTZsg.jpg" alt="Piscina" onclick="verImagenGrande(this.src)">
+                <img src="https://i.imgur.com/iK3JLGc.jpg" alt="Porterías" onclick="verImagenGrande(this.src)">
+            </div>
+            <p style="text-align: center; font-size: 0.85rem; color: #666;">
+                Toca las imágenes para ampliar
+            </p>
+        </section>
+
+        <section class="section">
+            <h2>📋 Info</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <strong>Capacidad</strong>
+                    <span id="infoCapacidad"></span>
+                </div>
+                <div class="info-item">
+                    <strong>Habitaciones</strong>
+                    <span id="infoHabitaciones"></span>
+                </div>
+                <div class="info-item" id="itemPrecio" style="display: none;">
+                    <strong>Precio/noche</strong>
+                    <span id="infoPrecio"></span>
+                </div>
+                <div class="info-item">
+                    <strong>Mínimo</strong>
+                    <span id="infoEstancia"></span>
+                </div>
+                <div class="info-item">
+                    <strong>Señal</strong>
+                    <span id="infoSeñal"></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="display: none;" id="seccionDisponibilidad">
+            <h2>📅 Disponibilidad</h2>
+            
+            <!-- Panel de acciones de rango admin -->
+            <div id="panelRangoAdmin" style="display: none; background: #e3f2fd; border: 2px solid #2196f3; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                <p style="font-weight: bold; color: #1565c0; margin-bottom: 0.5rem;">
+                    📦 Rango seleccionado: <span id="rangoTexto"></span>
+                </p>
+                <p style="font-size: 0.85rem; color: #666; margin-bottom: 0.8rem;">
+                    Los clientes SOLO podrán reservar este rango completo, no parcialmente.
+                </p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                    <button class="btn" style="background: #2196f3; padding: 0.7rem; font-size: 0.85rem;" onclick="crearPaqueteObligatorio()">
+                        📦 Crear Paquete Obligatorio
+                    </button>
+                    <button class="btn btn-secondary" style="padding: 0.7rem; font-size: 0.85rem;" onclick="limpiarRangoAdmin()">
+                        ✖️ Cancelar
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Listado de paquetes existentes -->
+            <div id="listadoPaquetes" style="display: none; background: #f5f5f5; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                <h3 style="color: var(--color-principal); font-size: 1rem; margin-bottom: 0.5rem;">📦 Paquetes Obligatorios Activos:</h3>
+                <div id="paquetesContenido"></div>
+            </div>
+            
+            <p style="text-align: center; color: var(--color-secundario); margin-bottom: 0.6rem; font-size: 0.8rem;">
+                <span style="font-weight: bold;">ADMIN:</span> Click en 2 fechas para crear paquete | <span style="color: #dc3545; cursor: pointer; font-weight: bold;" onclick="limpiarRangoAdmin()">✖️ Limpiar</span>
+            </p>
+            <div class="month-selector">
+                <button onclick="cambiarMes(-1)">◀</button>
+                <h3 id="mesActual"></h3>
+                <button onclick="cambiarMes(1)">▶</button>
+            </div>
+            <div class="calendar-wrapper">
+                <div class="calendar" id="calendario"></div>
+            </div>
+            <div style="margin-top: 0.6rem; display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; font-size: 0.75rem;">
+                <span>🟢 Libre</span>
+                <span>🔴 Ocupado</span>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>✉️ Reserva</h2>
+            
+            <div id="alertContainer"></div>
+            
+            <div class="reserva-layout">
+                <div class="reserva-form">
+                    <form id="reservaForm">
+                        <div class="form-group">
+                            <label for="nombre">Nombre *</label>
+                            <input type="text" id="nombre" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dni">DNI/NIE *</label>
+                            <input type="text" id="dni" placeholder="12345678A" required maxlength="9">
+                            <div id="dniValidation" class="validation-message"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telefono">Teléfono *</label>
+                            <input type="tel" id="telefono" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="personas">Personas *</label>
+                            <input type="number" id="personas" min="1" max="15" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fechaEntrada">Entrada *</label>
+                            <input type="date" id="fechaEntrada" required readonly>
+                            <small style="color: #666; font-size: 0.75rem;">Usar calendario →</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fechaSalida">Salida *</label>
+                            <input type="date" id="fechaSalida" required readonly>
+                            <small style="color: #666; font-size: 0.75rem;">Usar calendario →</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="comentarios">Comentarios</label>
+                            <textarea id="comentarios"></textarea>
+                        </div>
+
+                        <div id="resumenReserva" style="background: var(--color-fondo); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; display: none;">
+                            <h3 style="color: var(--color-principal); margin-bottom: 0.5rem; font-size: 1rem;">💰 Resumen:</h3>
+                            <p style="font-size: 0.9rem;"><strong>Noches:</strong> <span id="resumenNoches"></span></p>
+                            <p style="font-size: 0.9rem;"><strong>Total:</strong> <span id="resumenTotal"></span>€</p>
+                            <p style="font-size: 0.9rem;"><strong>Señal:</strong> <span id="resumenSeñal"></span>€</p>
+                        </div>
+
+                        <div class="loader" id="loader"></div>
+                        
+                        <button type="submit" class="btn" id="btnEnviar">
+                            📧 Enviar Reserva
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="reserva-calendario">
+                    <h3 style="color: var(--color-principal); margin-bottom: 0.8rem; font-size: 1.1rem;">📅 Selecciona fechas</h3>
+                    <p style="text-align: center; color: var(--color-secundario); margin-bottom: 0.6rem; font-size: 0.8rem;">
+                        Toca entrada y salida | <span style="color: #dc3545; cursor: pointer; font-weight: bold;" onclick="limpiarFechas()">✖️ Limpiar</span>
+                    </p>
+                    <div class="month-selector">
+                        <button type="button" onclick="cambiarMes(-1)">◀</button>
+                        <h3 id="mesActualReserva" style="font-size: 0.95rem;"></h3>
+                        <button type="button" onclick="cambiarMes(1)">▶</button>
+                    </div>
+                    <div class="calendar" id="calendarioReserva"></div>
+                    <div style="margin-top: 0.6rem; display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; font-size: 0.75rem;">
+                        <span>🟢 Libre</span>
+                        <span>🔴 Ocupado</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>💳 Datos Señal</h2>
+            <div class="info-grid">
+                <div class="info-item" style="grid-column: span 2;">
+                    <strong>Titular</strong>
+                    <span id="pagoTitular"></span>
+                </div>
+                <div class="info-item" style="grid-column: span 2;">
+                    <strong>IBAN</strong>
+                    <span id="pagoIban" style="font-size: 0.75rem;"></span>
+                </div>
+            </div>
+            <div class="info-grid" style="margin-top: 0.8rem;">
+                <div class="info-item" style="grid-column: span 2;">
+                    <strong>Bizum</strong>
+                    <span id="pagoBizum"></span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MODALES -->
+    <div id="actionMenu" class="action-menu">
+        <h3 id="actionMenuTitle">Fecha</h3>
+        <div class="action-buttons">
+            <button class="btn btn-danger" onclick="bloquearFecha()">🔴 Bloquear Día</button>
+            <button class="btn btn-success" onclick="desbloquearFecha()">🟢 Desbloquear Día</button>
+            <button class="btn" onclick="mostrarModalPrecio()">💰 Precio</button>
+            <button class="btn" style="background: #9c27b0;" onclick="bloquearRangoObligatorio()">🔒 Bloqueo Obligatorio</button>
+            <button class="btn" style="background: #ff9800;" onclick="limpiarRangoAdmin()">✖️ Limpiar Selección</button>
+            <button class="btn btn-secondary" onclick="cerrarActionMenu()">✖️ Cerrar</button>
+        </div>
+    </div>
+
+    <div id="modalLoginAdmin" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🔐 Admin</h2>
+                <span class="close" onclick="cerrarModal('modalLoginAdmin')">&times;</span>
+            </div>
+            <form onsubmit="verificarPassword(event)">
+                <div class="form-group">
+                    <label for="passwordAdmin">Contraseña:</label>
+                    <div style="position: relative;">
+                        <input type="password" id="passwordAdmin" style="padding-right: 40px;">
+                        <button type="button" onclick="togglePassword()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.2rem;">
+                            👁️
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="modalPrecio" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>💰 Precio</h2>
+                <span class="close" onclick="cerrarModal('modalPrecio')">&times;</span>
+            </div>
+            <div id="fechasParaPrecio"></div>
+            <div class="form-group">
+                <label for="nuevoPrecio">Precio/noche (€):</label>
+                <input type="number" id="nuevoPrecio" min="0" step="1" placeholder="150">
+            </div>
+            <button class="btn" onclick="guardarPrecio()">💾 Guardar</button>
+        </div>
+    </div>
+
+    <div id="modalReservas" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📋 Reservas</h2>
+                <span class="close" onclick="cerrarModal('modalReservas')">&times;</span>
+            </div>
+            <div id="listadoReservas" class="reservas-list"></div>
+        </div>
+    </div>
+
+    <div id="modalConfirmacion" class="modal">
+        <div class="modal-content" style="text-align: center;">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">✅</div>
+            <h2 style="color: var(--color-principal); margin-bottom: 1rem;">¡Solicitud Enviada!</h2>
+            
+            <div style="background: #e7f3ff; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; text-align: left;">
+                <p style="margin-bottom: 1rem; font-weight: bold; color: var(--color-principal);">📧 Revisa tu email</p>
+                <p style="margin-bottom: 0.8rem; font-size: 0.9rem;">Te hemos enviado un email de confirmación con todos los detalles de tu reserva.</p>
+                
+                <p style="margin: 1rem 0; font-weight: bold; color: var(--color-secundario);">⏳ Pendiente de aprobación</p>
+                <p style="margin-bottom: 0.8rem; font-size: 0.9rem;">El anfitrión revisará tu solicitud y te confirmará la reserva.</p>
+                
+                <p style="margin: 1rem 0; font-weight: bold; color: #dc3545;">⚠️ IMPORTANTE</p>
+                <p style="margin-bottom: 0.8rem; font-size: 0.9rem;">La reserva se usará como <strong>FIANZA</strong>, y se devolverá al día siguiente de la salida.</p>
+                <p style="margin-bottom: 0.8rem; font-size: 0.9rem;">Debes enviar el <strong>justificante de pago de la señal</strong> respondiendo al email que has recibido o a:</p>
+                <p style="text-align: center; background: white; padding: 0.8rem; border-radius: 6px; font-weight: bold; color: var(--color-principal);" id="emailConfirmacion"></p>
+            </div>
+            
+            <button class="btn" onclick="cerrarModal('modalConfirmacion')" style="margin-top: 1rem;">
+                Entendido
+            </button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 <span id="footerNombre"></span></p>
+        <p style="margin-top: 0.5rem;">📧 <span id="footerEmail"></span></p>
+    </footer>
+
+    <!-- Scripts externos -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <!-- Tu JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
