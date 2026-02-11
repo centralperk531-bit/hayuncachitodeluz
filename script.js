@@ -1157,15 +1157,18 @@ document.getElementById('reservaForm').addEventListener('submit', async function
             nombreCampo: CONFIG.nombreCampo,
             confirmada: false
         };
-        
-        const exitoGoogle = await guardarReservaGoogle(reserva);
-        
+
+        // Recalcular señal en el submit (más robusto)
+        const totalNum = parseFloat(String(reserva.total).replace(",", "."));
+        reserva.señal = ((totalNum * CONFIG.señalPorcentaje) / 100).toFixed(2);
+       
+        const exitoGoogle = await guardarReservaGoogle(reserva);        
         if (!exitoGoogle) {
             throw new Error('Error al guardar en Google Sheets');
         }
         
-const fechaEntradaES = fechaES(reserva.fechaEntrada);
-const fechaSalidaES  = fechaES(reserva.fechaSalida);
+        const fechaEntradaES = fechaES(reserva.fechaEntrada);
+        const fechaSalidaES  = fechaES(reserva.fechaSalida);
         
         await emailjs.send(
             EMAILJS_CONFIG.serviceId,
