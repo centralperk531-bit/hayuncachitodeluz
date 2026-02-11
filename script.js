@@ -3,8 +3,8 @@ const ADMIN_PASSWORD = "Jesus170385";
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby_llWLzIYpMB6q6gxYh_szhQscNj7tBVA3EtVn0CuNSKICyXv2kPKAoYDRHqrEZD9t/exec";
 
 const CONFIG = {
-    nombreCampo: "Casa Paraíso",
-    descripcion: "Tu escapada perfecta - VTAR/CA/03260",
+    nombreCampo: "Hay un cachito de Luz",
+    descripcion: "Tu escapada rural perfecta ",
     descripcionLarga: "Lleva a toda la familia a este fantástico alojamiento que tiene un montón de espacio para divertirse. Paz y tranquilidad, piscina totalmente vallada para seguridad de los más pequeños. Capacidad 15 personas, 4 camas matrimonio y 7 individuales en 4 grandes habitaciones. Barbacoa, porche, cama elástica, porterias, canasta. Aparcamiento privado, buen enlace con autovía que comunica con las playas de Conil,Los Caños, Zahara, Tarifa, etc... NO SE PERMITEN CELEBRACIONES",  // ← Cambia esto
     enlace2: {
         nombre: "📍 Cómo Llegar",  // ← Cambia el texto
@@ -15,11 +15,11 @@ const CONFIG = {
     precioPorNoche: 200,
     estanciaMinima: 2,
     señalPorcentaje: 25,
-    tuEmail: "vtar.paraisochiclana@gmail.com",
+    tuEmail: "aunnotengoelemai@gmail.com",
     datosPago: {
-        titular: "Jesús Teijeiro López",
-        iban: "ES33 3187 0129 1153 7491 1328",
-        bizum: "+34 669 65 66 24"
+        titular: "Anita Bla Bla Bla",
+        iban: "ESxxxxxxxxxxxxxxxx",
+        bizum: "+34 000 00 00 00"
     }
 };
 
