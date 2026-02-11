@@ -1,21 +1,21 @@
 // ===== CONFIGURACIÓN =====
-const ADMIN_PASSWORD = "Jesus170385";
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby_llWLzIYpMB6q6gxYh_szhQscNj7tBVA3EtVn0CuNSKICyXv2kPKAoYDRHqrEZD9t/exec";
+const ADMIN_PASSWORD = "Anitaestaechaporvo";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz4fgpguBgnwDaaPW5JZoonoszk2q2K5am2WggutohcwE3fZnqqU9cTUOzTb-kwXhg/exec";
 
 const CONFIG = {
     nombreCampo: "Hay un cachito de Luz",
     descripcion: "Tu escapada rural perfecta ",
-    descripcionLarga: "Lleva a toda la familia a este fantástico alojamiento que tiene un montón de espacio para divertirse. Paz y tranquilidad, piscina totalmente vallada para seguridad de los más pequeños. Capacidad 15 personas, 4 camas matrimonio y 7 individuales en 4 grandes habitaciones. Barbacoa, porche, cama elástica, porterias, canasta. Aparcamiento privado, buen enlace con autovía que comunica con las playas de Conil,Los Caños, Zahara, Tarifa, etc... NO SE PERMITEN CELEBRACIONES",  // ← Cambia esto
+    descripcionLarga: "Bienvenido a tu escapada rural en Grazalema: naturaleza, tranquilidad y aire puro en plena Sierra de Cádiz. Ideal para desconectar en pareja, con amigos o en familia, disfrutar de rutas, pueblos blancos y atardeceres que se quedan en la memoria.",  // ← Cambia esto
     enlace2: {
         nombre: "📍 Cómo Llegar",  // ← Cambia el texto
         url: "https://www.google.com/maps/place/36%C2%B027'55.1%22N+6%C2%B007'45.0%22W/@36.4652963,-6.1317455,17z/data=!3m1!4b1!4m4!3m3!8m2!3d36.4652963!4d-6.1291706?hl=es&entry=ttu&g_ep=EgoyMDI1MTIwMi4wIKXMDSoASAFQAw%3D%3D"  // ← Pon tu URL real
     },
-    capacidad: "15 personas",
-    habitaciones: 4,
+    capacidad: "X personas",
+    habitaciones: X,
     precioPorNoche: 200,
     estanciaMinima: 2,
     señalPorcentaje: 25,
-    tuEmail: "aunnotengoelemai@gmail.com",
+    tuEmail: "aunnotengoelemail@gmail.com",
     datosPago: {
         titular: "Anita Bla Bla Bla",
         iban: "ESxxxxxxxxxxxxxxxx",
