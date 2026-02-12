@@ -1152,7 +1152,7 @@ document.getElementById('reservaForm').addEventListener('submit', async function
             fechaSalida: document.getElementById('fechaSalida').value,
             noches: document.getElementById('resumenNoches').textContent,
             total: document.getElementById('resumenTotal').textContent,
-            señal: document.getElementById('resumenSeñal').textContent,
+            senal: document.getElementById('resumenSeñal').textContent,
             comentarios: document.getElementById('comentarios').value,
             nombreCampo: CONFIG.nombreCampo,
             confirmada: false
@@ -1185,7 +1185,7 @@ document.getElementById('reservaForm').addEventListener('submit', async function
                 fechaSalida: fechaSalidaES,
                 noches: reserva.noches,
                 total: reserva.total,
-                señal: reserva.señal,
+                senal: reserva.senal,
                 comentarios: reserva.comentarios
             }
         );
@@ -1204,7 +1204,7 @@ document.getElementById('reservaForm').addEventListener('submit', async function
                 fechaSalida: fechaSalidaES,
                 noches: reserva.noches,
                 total: reserva.total,
-                señal: reserva.señal,
+                senal: reserva.senal,
                 comentarios: reserva.comentarios
             }
         );
