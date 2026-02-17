@@ -8,7 +8,7 @@ const CONFIG = {
     descripcionLarga: "Bienvenido a tu escapada rural en Grazalema: naturaleza, tranquilidad y aire puro en plena Sierra de Cádiz. Ideal para desconectar en pareja, con amigos o en familia, disfrutar de rutas, pueblos blancos y atardeceres que se quedan en la memoria.",  // ← Cambia esto
     enlace2: {
         nombre: "📍 Cómo Llegar",  // ← Cambia el texto
-        url: "https://www.google.com/maps/place/36%C2%B027'55.1%22N+6%C2%B007'45.0%22W/@36.4652963,-6.1317455,17z/data=!3m1!4b1!4m4!3m3!8m2!3d36.4652963!4d-6.1291706?hl=es&entry=ttu&g_ep=EgoyMDI1MTIwMi4wIKXMDSoASAFQAw%3D%3D"  // ← Pon tu URL real
+        url: "https://maps.app.goo.gl/7WSGu9Gf2RmnCfcBA?g_st=iw"  // ← Pon tu URL real
     },
     capacidad: "1 personas",
     habitaciones: 1,
