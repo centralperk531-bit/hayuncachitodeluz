@@ -63,11 +63,19 @@ if (reservasGuardadas) {
     reservas = JSON.parse(reservasGuardadas);
 }
 
-if (window.innerWidth <= 767) {
-    document.getElementById('headerNombre').innerHTML = 'Hay un cachito<br>de Luz';
-} else {
-    document.getElementById('headerNombre').textContent = CONFIG.nombreCampo;
+function actualizarTituloResponsive() {
+    const titulo = document.getElementById('headerNombre');
+    if (!titulo) return;
+
+    if (window.innerWidth <= 767) {
+        titulo.innerHTML = 'Hay un cachito<br>de Luz';
+    } else {
+        titulo.textContent = CONFIG.nombreCampo;
+    }
 }
+
+actualizarTituloResponsive();
+window.addEventListener('resize', actualizarTituloResponsive);
 document.getElementById('headerDescripcion').textContent = CONFIG.descripcion;
 const descLarga = document.getElementById('headerDescripcionLarga');
 if (descLarga) descLarga.textContent = CONFIG.descripcionLarga;
