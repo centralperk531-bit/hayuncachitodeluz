@@ -158,7 +158,8 @@ header p {
 
 .galeria img:first-child {
     grid-column: span 2;
-    height: 200px;
+    height: 150px;
+    object-position: top;
 }
 
 /* ===== CALENDARIO ===== */
