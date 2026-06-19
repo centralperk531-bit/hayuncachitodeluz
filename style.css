@@ -65,14 +65,6 @@ header p {
         text-overflow: ellipsis;
     }
 }
- @media (max-width: 767px) {
-    #headerNombre {
-        max-width: 10ch;
-        margin: 0 auto;
-        text-align: center;
-        line-height: 1.1;
-    }
-}
 
 .admin-btn {
     position: absolute;
