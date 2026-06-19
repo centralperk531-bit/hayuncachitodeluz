@@ -640,3 +640,12 @@ footer {
     .control-buttons {
         grid-template-columns: repeat(3, 1fr);
     }
+
+    @media (max-width: 767px) {
+    #headerNombre {
+        max-width: 10ch;
+        margin: 0 auto;
+        text-align: center;
+        line-height: 1.1;
+    }
+}
