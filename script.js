@@ -63,7 +63,11 @@ if (reservasGuardadas) {
     reservas = JSON.parse(reservasGuardadas);
 }
 
-document.getElementById('headerNombre').textContent = CONFIG.nombreCampo;
+if (window.innerWidth <= 767) {
+    document.getElementById('headerNombre').innerHTML = 'Hay un cachito<br>de Luz';
+} else {
+    document.getElementById('headerNombre').textContent = CONFIG.nombreCampo;
+}
 document.getElementById('headerDescripcion').textContent = CONFIG.descripcion;
 const descLarga = document.getElementById('headerDescripcionLarga');
 if (descLarga) descLarga.textContent = CONFIG.descripcionLarga;
